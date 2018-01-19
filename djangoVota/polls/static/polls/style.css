@@ -3,6 +3,8 @@ li a {
     font-size: 20px;
 }
 body {
-    background: white url("images/fondo.png");
-    background-size: 100% 100%;
+    background: white url("images/fondo.jpg");
+}
+h1{
+  color: magenta;
 }

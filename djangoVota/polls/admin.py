@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import Choice, Question
+from .models import Preguntas, Respuestas
 
 
 class ChoiceInline(admin.TabularInline):
-    model = Choice
+    model = Respuestas
     extra = 3
 
 
@@ -14,10 +14,10 @@ class QuestionAdmin(admin.ModelAdmin):
         ('Date information', {'fields': ['pub_date']}),
     ]
     inlines = [ChoiceInline]
-    list_display = ('question_text', 'pub_date', 'was_published_recently')
-    list_filter = ['pub_date']
-    search_fields = ['question_text']
+    list_display = ('texto', 'fecha_publicacion', 'was_published_recently')
+    list_filter = ['fecha_publicacion']
+    search_fields = ['texto']
 
-admin.site.register(Question, QuestionAdmin)
+admin.site.register(Preguntas, QuestionAdmin)
 
-admin.site.register(Choice)
+admin.site.register(Respuestas)
