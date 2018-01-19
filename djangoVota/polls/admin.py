@@ -1,23 +1,17 @@
 from django.contrib import admin
 
-from .models import Preguntas, Respuestas
-
-
-class ChoiceInline(admin.TabularInline):
-    model = Respuestas
+from .models import Respuesta, Pregunta
+class RespuestaEnLinea(admin.TabularInline):
+    model = Respuesta
     extra = 3
-
-
-class QuestionAdmin(admin.ModelAdmin):
+class PreguntaAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': ['question_text']}),
-        ('Date information', {'fields': ['pub_date']}),
+        ('Informacion de Encuesta',               {'fields': ['texto']}),
+        ('Informacion de Fecha', {'fields': ['fecha_publicacion']}),
     ]
-    inlines = [ChoiceInline]
-    list_display = ('texto', 'fecha_publicacion', 'was_published_recently')
+    inlines = [RespuestaEnLinea]
+    list_display = ('texto', 'fecha_publicacion')
     list_filter = ['fecha_publicacion']
     search_fields = ['texto']
-
-admin.site.register(Preguntas, QuestionAdmin)
-
-admin.site.register(Respuestas)
+admin.site.register(Pregunta, PreguntaAdmin)
+admin.site.register(Respuesta)
