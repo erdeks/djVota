@@ -1,0 +1,8 @@
+li a {
+    color: White;
+    font-size: 20px;
+}
+body {
+    background: white url("images/fondo.png");
+    background-size: 100% 100%;
+}
