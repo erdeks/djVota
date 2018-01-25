@@ -1,17 +1,18 @@
 from django.contrib import admin
 
-from .models import Respuesta, Pregunta
+from .models import Respuesta, Pregunta, Voto
 class RespuestaEnLinea(admin.TabularInline):
     model = Respuesta
-    extra = 3
+
+class RespuestaAdmin(admin.ModelAdmin):
+    list_display = ('texto', 'pregunta', 'votosTotales')
+    search_fields = ['texto']
+    ordering = ['-pregunta']
 class PreguntaAdmin(admin.ModelAdmin):
-    fieldsets = [
-        ('Informacion de Encuesta',               {'fields': ['texto']}),
-        ('Informacion de Fecha', {'fields': ['fecha_publicacion']}),
-    ]
     inlines = [RespuestaEnLinea]
     list_display = ('texto', 'fecha_publicacion')
     list_filter = ['fecha_publicacion']
     search_fields = ['texto']
 admin.site.register(Pregunta, PreguntaAdmin)
-admin.site.register(Respuesta)
+admin.site.register(Respuesta, RespuestaAdmin)
+admin.site.register(Voto)
