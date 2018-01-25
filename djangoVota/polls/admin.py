@@ -10,7 +10,7 @@ class RespuestaAdmin(admin.ModelAdmin):
     ordering = ['-pregunta']
 class PreguntaAdmin(admin.ModelAdmin):
     inlines = [RespuestaEnLinea]
-    list_display = ('texto', 'fecha_publicacion')
+    list_display = ('texto', 'fecha_publicacion', 'fecha_expiracion')
     list_filter = ['fecha_publicacion']
     search_fields = ['texto']
     def get_queryset(self, request):
