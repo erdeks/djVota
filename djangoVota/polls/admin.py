@@ -8,6 +8,11 @@ class RespuestaAdmin(admin.ModelAdmin):
     list_display = ('texto', 'pregunta', 'votosTotales')
     search_fields = ['texto']
     ordering = ['-pregunta']
+    def get_queryset(self, request):
+        qs = Respuesta.objects.all()
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(pregunta__autor=request.user)
 class PreguntaAdmin(admin.ModelAdmin):
     inlines = [RespuestaEnLinea]
     list_display = ('texto', 'fecha_publicacion', 'fecha_expiracion')
