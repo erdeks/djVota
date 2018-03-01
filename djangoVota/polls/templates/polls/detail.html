@@ -1,12 +1,22 @@
-<h1>{{ pregunta.texto }}</h1>
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+<div class="header">
+  <h1>{{ pregunta.texto }}</h1>
+</div>
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<div class="container">
+  <form action="{% url 'polls:vote' pregunta.id %}" method="post">
+  {% csrf_token %}
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-<form action="{% url 'polls:vote' pregunta.id %}" method="post">
-{% csrf_token %}
-{% for respuesta in pregunta.respuesta_set.all %}
-    <input type="radio" name="respuesta" id="respuesta{{ forloop.counter }}" value="{{ respuesta.id }}" />
-    <label for="respuesta{{ forloop.counter }}">{{ respuesta.texto }}</label><br />
-{% endfor %}
-<input type="submit" value="Vota" />
+  {% for respuesta in pregunta.respuesta_set.all %}
+      <input type="radio" name="respuesta" id="respuesta{{ forloop.counter }}" value="{{ respuesta.id }}" />
+      <input type="hidden" name="user" id="user" value="{{ user.id }}" />
+      <label for="respuesta{{ forloop.counter }}">{{ respuesta.texto }}</label><br />
+  {% endfor %}
+  <input type="submit" value="Vota" />
+  <a href="http://127.0.0.1:8000/index"><input type="button" value="Volver"></a>
+</div>
 </form>
+{% endblock %}

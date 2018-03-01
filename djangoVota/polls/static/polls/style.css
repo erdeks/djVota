@@ -1,6 +1,12 @@
 li a {
-    color: green;
+    color: black;
 }
 body {
     background: white url("images/fondo.jpg");
+}
+.header{
+  margin-left: 2%;
+}
+h1{
+  text-align: center;
 }
